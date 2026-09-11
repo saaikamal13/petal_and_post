@@ -1,0 +1,280 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-script: var(--font-script), "Dancing Script", cursive;
+
+  --color-ivory: #FAF7F2;
+  --color-ivory-light: #FDFBF7;
+  --color-ivory-dark: #F3ECE2;
+  --color-border-warm: #EAE2D7;
+
+  --color-charcoal: #2A2724;
+  --color-charcoal-muted: #625C54;
+  --color-charcoal-light: #8E867C;
+
+  --color-blush: #F8ECE9;
+  --color-blush-border: #EAD5D0;
+  --color-blush-accent: #C78275;
+
+  --color-powder: #EBF2F7;
+  --color-powder-border: #D2E0EB;
+  --color-powder-accent: #6C93AF;
+
+  --color-sage: #EDF3EE;
+  --color-sage-border: #D3DFD5;
+  --color-sage-accent: #6B8B74;
+
+  --color-kraft: #EADBC8;
+  --color-kraft-border: #D4C1A8;
+  --color-kraft-accent: #8E7153;
+
+  --color-gold: #C5A059;
+  --color-gold-light: #DFC081;
+  --color-gold-dark: #917133;
+
+  /* Editorial ink navy for dark sections */
+  --color-ink: #2C3A4A;
+  --color-ink-light: #3D4F5E;
+  --color-ink-text: #E8E0D5;
+}
+
+:root {
+  --background: #FDFBF7;
+  --foreground: #2A2724;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* ─────────────────────────────────────────────
+   PAPER TEXTURES
+───────────────────────────────────────────── */
+
+/* Subtle physical paper texture simulation */
+.stationery-paper {
+  background-color: #FAF7F2;
+  background-image: radial-gradient(#E8DFD3 0.75px, transparent 0.75px), radial-gradient(#E8DFD3 0.75px, #FAF7F2 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+/* Fine grain paper texture */
+.paper-grain {
+  background-color: #FAF7F2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Rich parchment for special sections */
+.parchment {
+  background-color: #F3ECE2;
+  background-image: radial-gradient(#DDD0BB 0.6px, transparent 0.6px);
+  background-size: 22px 22px;
+}
+
+/* Notebook / Letter lines pattern */
+.stationery-lines {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    #E8E0D5 31px,
+    #E8E0D5 32px
+  );
+  line-height: 32px;
+}
+
+/* Dark ink section */
+.ink-section {
+  background-color: #2C3A4A;
+  color: #E8E0D5;
+}
+
+/* ─────────────────────────────────────────────
+   SHADOWS
+───────────────────────────────────────────── */
+
+/* Soft paper drop shadow */
+.shadow-paper {
+  box-shadow: 
+    0 1px 3px rgba(42, 39, 36, 0.04),
+    0 8px 24px -4px rgba(42, 39, 36, 0.06),
+    0 20px 48px -8px rgba(42, 39, 36, 0.08);
+}
+
+.shadow-paper-hover {
+  box-shadow: 
+    0 2px 6px rgba(42, 39, 36, 0.06),
+    0 12px 32px -4px rgba(42, 39, 36, 0.09),
+    0 24px 60px -8px rgba(42, 39, 36, 0.12);
+}
+
+/* Lift shadow with hover state */
+.shadow-lift {
+  box-shadow: 
+    0 1px 2px rgba(42, 39, 36, 0.04),
+    0 4px 12px -2px rgba(42, 39, 36, 0.07);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.shadow-lift:hover {
+  box-shadow:
+    0 2px 4px rgba(42, 39, 36, 0.06),
+    0 10px 24px -4px rgba(42, 39, 36, 0.1),
+    0 24px 48px -8px rgba(42, 39, 36, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Wax seal 3D depth and shimmer */
+.wax-seal-shadow {
+  box-shadow: 
+    inset 0 2px 3px rgba(255, 255, 255, 0.4),
+    inset 0 -3px 4px rgba(78, 56, 17, 0.4),
+    0 4px 12px rgba(92, 70, 27, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+
+/* Gentle float for botanical elements */
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+.animate-float-gentle {
+  animation: floatGentle 7s ease-in-out infinite;
+}
+
+/* Subtle pulse glow */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Editorial entrance — fade up */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.animate-fade-up-delay-1 {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+.animate-fade-up-delay-2 {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+.animate-fade-up-delay-3 {
+  animation: fadeSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+/* Seal entrance — press in */
+@keyframes sealEntrance {
+  from { opacity: 0; transform: scale(0.6) rotate(-15deg); }
+  60% { transform: scale(1.08) rotate(3deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.animate-seal-entrance {
+  animation: sealEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Ink reveal — left to right */
+@keyframes inkReveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+.animate-ink-reveal {
+  animation: inkReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Slow paper float */
+@keyframes paperFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(-1deg); }
+}
+.animate-paper-float {
+  animation: paperFloat 8s ease-in-out infinite;
+}
+.animate-paper-float-reverse {
+  animation: paperFloat 9s ease-in-out infinite reverse;
+}
+
+/* ─────────────────────────────────────────────
+   EDITORIAL UTILITIES
+───────────────────────────────────────────── */
+
+/* Gold underline accent */
+.ink-underline {
+  text-decoration: underline;
+  text-decoration-color: #C5A059;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+/* Thin editorial divider with center ornament */
+.editorial-rule {
+  position: relative;
+  border: none;
+  height: 1px;
+  background: #E2D8CC;
+  margin: 0;
+}
+
+.editorial-rule-ornament::after {
+  content: '✦';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #FDFBF7;
+  padding: 0 12px;
+  color: #C5A059;
+  font-size: 10px;
+  letter-spacing: 0;
+}
+
+/* Small caps label style */
+.label-sm-caps {
+  font-family: var(--font-serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Postal stamp border effect */
+.stamp-border {
+  border: 2px solid #DDD0BB;
+  box-shadow: inset 0 0 0 3px #FAF7F2, 0 2px 8px rgba(42,39,36,0.06);
+  background-image: 
+    repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.03) 4px, rgba(0,0,0,0.03) 5px),
+    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.03) 4px, rgba(0,0,0,0.03) 5px);
+}
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #FDFBF7;
+}
+::-webkit-scrollbar-thumb {
+  background: #DFD8CE;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C7BDAE;
+}
