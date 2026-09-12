@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       .from('orders')
       .insert({
         order_token: token,
-        status: 'ORDER_RECEIVED',
+        status: 'pending',
         total_cents: totalCents,
         payment_status: 'pending',
         user_id: null, // anonymous order

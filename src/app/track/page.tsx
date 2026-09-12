@@ -45,33 +45,33 @@ type Stage = {
 
 const STAGES: Stage[] = [
   {
-    key: "ORDER_RECEIVED",
-    title: "Order received",
+    key: "pending",
+    title: "Words Received",
     description: "Your letter has been received and is being prepared.",
     icon: <Mail className="w-5 h-5" />,
   },
   {
-    key: "IN_PRODUCTION",
-    title: "Being prepared",
-    description: "Your letter is being written and carefully packaged.",
+    key: "confirmed",
+    title: "Being Brought to Life",
+    description: "Our team is carefully preparing your handwritten letter.",
     icon: <PenLine className="w-5 h-5" />,
   },
   {
-    key: "READY_FOR_DELIVERY",
-    title: "Ready for delivery",
-    description: "Your letter is ready and waiting to begin its journey.",
+    key: "processing",
+    title: "Being Prepared for Its Journey",
+    description: "Your letter is being folded, sealed and dressed with the details you chose.",
     icon: <Heart className="w-5 h-5" />,
   },
   {
-    key: "OUT_FOR_DELIVERY",
-    title: "Out for delivery",
-    description: "Your letter is on its way to the recipient.",
+    key: "in_transit",
+    title: "On Its Way",
+    description: "Your letter has left us and is making its way to its recipient.",
     icon: <Truck className="w-5 h-5" />,
   },
   {
-    key: "DELIVERED",
+    key: "delivered",
     title: "Delivered",
-    description: "Your letter has reached its destination.",
+    description: "Your letter has found its way to them.",
     icon: <Check className="w-5 h-5" />,
   },
 ];
@@ -97,34 +97,6 @@ function getStageIndex(status: string) {
 
   if (index !== -1) {
     return index;
-  }
-
-  // Handle a few possible backend status names.
-  if (
-    normalized.includes("DELIVER")
-  ) {
-    return 4;
-  }
-
-  if (
-    normalized.includes("OUT_FOR") ||
-    normalized.includes("DISPATCH")
-  ) {
-    return 3;
-  }
-
-  if (
-    normalized.includes("READY") ||
-    normalized.includes("PACK")
-  ) {
-    return 2;
-  }
-
-  if (
-    normalized.includes("PRODUCTION") ||
-    normalized.includes("PREPAR")
-  ) {
-    return 1;
   }
 
   return 0;
