@@ -196,10 +196,32 @@ function TrackContent() {
   // Automatically load an order when arriving from confirmation page.
   useEffect(() => {
     if (requestedToken) {
-      trackOrder(requestedToken);
+      const cleanToken = requestedToken.trim();
+
+      fetch(
+        `/api/orders?order_token=${encodeURIComponent(cleanToken)}`,
+        { method: "GET", credentials: "include", cache: "no-store" }
+      )
+        .then((res) => res.json().then((data) => ({ res, data })))
+        .then(({ res, data }) => {
+          setSearched(true);
+          setError("");
+          setOrder(null);
+          setLoading(true);
+
+          if (!res.ok) {
+            setError(data?.error || "We couldn't find that order.");
+          } else {
+            setOrder(data);
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch order:", err);
+          setError("We couldn't find that order.");
+        })
+        .finally(() => setLoading(false));
     }
     // We intentionally only react to the URL token.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requestedToken]);
 
   const currentStageIndex = order
