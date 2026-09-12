@@ -15,10 +15,12 @@ export default function BillingPage() {
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [qrAvailable, setQrAvailable] = useState(true);
 
-  const confirmOrder = () => {
+  const confirmOrder = async () => {
     if (!paymentComplete) return;
-    recordOrder();
-    router.push('/confirmation');
+    const token = await recordOrder();
+    if (token) {
+      router.push(`/confirmation?order_token=${encodeURIComponent(token)}`);
+    }
   };
 
   return <div className="min-h-screen flex flex-col bg-[#FDFBF7] text-[#2A2724]"><Navbar /><StepIndicator />
@@ -30,7 +32,7 @@ export default function BillingPage() {
             {qrAvailable ? <Image src="/payment/upi-qr.png" alt="UPI payment QR code" width={220} height={220} className="max-w-full rounded-lg" onError={() => setQrAvailable(false)} /> : <div className="w-[220px] h-[220px] max-w-full rounded-lg border border-dashed border-[#C5A059]/70 bg-[#FCF8EE] flex flex-col justify-center"><span className="font-serif tracking-[0.2em] text-[#9E7D3A]">UPI QR CODE</span><span className="font-serif text-sm text-[#7A7369] mt-3 px-6">Your payment QR will appear here.</span></div>}
             <p className="font-serif text-sm text-[#6E655A] mt-5">Scan the QR code using any UPI app.</p>
           </div>
-          <button type="button" onClick={() => setPaymentComplete((complete) => !complete)} className={`w-full p-3 rounded-lg border text-sm font-serif flex items-center justify-center gap-2 transition-colors ${paymentComplete ? 'bg-[#F4F8F5] border-[#7A9A84] text-[#3D5242]' : 'bg-[#FAF7F2] border-[#D8CFC2] hover:border-[#C5A059]'}`}><span className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentComplete ? 'bg-[#7A9A84] text-white border-[#7A9A84]' : 'border-[#A89E90]'}`}>{paymentComplete && <Check className="w-3 h-3" />}</span>I&apos;ve completed the payment</button>
+          <button type="button" onClick={() => setPaymentComplete((complete) => !complete)} className={`w-full p-3 rounded-lg border text-sm font-serif flex items-center justify-center transition-colors ${paymentComplete ? 'bg-[#F4F8F5] border-[#7A9A84] text-[#3D5242]' : 'bg-[#FAF7F2] border-[#D8CFC2] hover:border-[#C5A059]'}`}><span className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentComplete ? 'bg-[#7A9A84] text-white border-[#7A9A84]' : 'border-[#A89E90]'}`}>{paymentComplete && <Check className="w-3 h-3" />}</span>I&apos;ve completed the payment</button>
           <button type="button" disabled={!paymentComplete} onClick={confirmOrder} className="w-full py-3.5 rounded-full bg-[#2A2724] text-[#FDFBF7] font-serif shadow-md disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#3E3A35]">Confirm Order 💌</button>
         </section>
         <aside className="bg-[#FAF7F2] border border-[#E5DDD2] rounded-xl p-6 sm:p-8 shadow-xs space-y-4"><div className="border-b border-[#EAE2D7] pb-3"><span className="text-xs font-serif uppercase tracking-widest text-[#8C8377]">Order summary</span><h2 className="font-serif text-2xl">Made especially for them</h2></div>
