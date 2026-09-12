@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
       .from('order_timeline')
       .insert({
         order_id: order.id,
-        stage: 'ORDER_RECEIVED',
+        stage: 'pending',
       });
 
     if (timelineError) {
