@@ -91,9 +91,7 @@ function formatDate(dateString: string) {
 }
 
 function getStageIndex(status: string) {
-  const normalized = status.toUpperCase();
-
-  const index = STAGES.findIndex((stage) => stage.key === normalized);
+  const index = STAGES.findIndex((stage) => stage.key === status);
 
   if (index !== -1) {
     return index;
