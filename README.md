@@ -69,13 +69,4 @@
 
 ---
 
-## 📦 Running Locally
 
-```bash
-# In directory C:\Users\Saaikamal\.gemini\antigravity\scratch\petal-and-post
-npm run dev
-# Or build and start production
-npm run build
-npm start
-```
-The application will be accessible at `http://localhost:3000`.
